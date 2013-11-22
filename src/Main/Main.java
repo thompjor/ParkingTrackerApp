@@ -1,19 +1,24 @@
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * ParkingTracker
+ * 
+ * Description: The parking tracker application simulates a simple program which could be used to assign 
+ *              and monitor the status of parking stalls within a parking lot. A user will create a lot with 
+ *              desired number of stalls. From there, the user can add more stalls or remove existing stalls.
+ *              beyond that, the user may also search for specific stalls and modify their status (A stall can 
+ *              classified as in service or out of service, and as occupied or vacant).
+ * 
+ * @author: Archana Gumber & Jordan Thompson
+ * @version: 2.0
  */
 
 package Main;
 
 import ParkingClasses.ParkingLot;
 import ParkingClasses.ParkingStall;
+import Interface.Interface;
 import java.util.Scanner;
-/**
- *
- * @author Jordan
- */
+
 public class Main {
     public static void main (String[] args) {
         
@@ -23,8 +28,10 @@ public class Main {
           int numStalls;
           String lotName;
           ParkingStall stall;
+          Interface inter = new Interface();
           
           System.out.println("Welcome to the parking tracker application!\n");
+          
           System.out.print("Please enter the name of the parking lot you are creating: ");
           lotName = user_input.next();
           System.out.print("Please enter the number of stalls in the parking lot you are creating: ");
@@ -32,13 +39,7 @@ public class Main {
           ParkingLot Lot1 = new ParkingLot(lotName, numStalls);
           
           do {
-          System.out.println("\n-----------------------------------------------------------\n");
-          System.out.println("Enter 'A' to add a stall");
-          System.out.println("Enter 'L' to print a list");
-          System.out.println("Enter 'S' to search for a stall by number");
-          System.out.println("Enter 'Q' to quit");
-          System.out.print("What would you like to do? ");
-          command = user_input.next().charAt(0);
+          command = inter.ParkingLotInterface();
           
           switch (command) {
               case 'A':
@@ -48,13 +49,7 @@ public class Main {
                         if (stall == null)
                             break;
                        stall.printStall();
-                       System.out.println("\n-----------------------------------------------------------\n");
-                       System.out.println("Enter 'O' to change the stall to occupied");
-                       System.out.println("Enter 'V' to change the stall to vacant");
-                       System.out.println("Enter 'S' to change the stall to in-service");
-                       System.out.println("Enter 'X' to change the stall to out-of-service");
-                       System.out.print("What would you like to do? ");
-                       command = user_input.next().charAt(0);
+                       command = inter.ParkingStallInterface();
                   
                        switch (command) {
                            case 'O':
@@ -69,14 +64,7 @@ public class Main {
                        }
                        break;
               case 'L':
-              case 'l': 
-                       System.out.println("\n-----------------------------------------------------------\n");
-                       System.out.println("Enter 'O' to print a list of occupied stalls");
-                       System.out.println("Enter 'V' to print a list of vacant stalls");
-                       System.out.println("Enter 'S' to print a list of in-service stalls");
-                       System.out.println("Enter 'X' to quit to print a list of out-of-service stalls");
-                       System.out.print("What would you like to do? ");
-                       command = user_input.next().charAt(0);
+              case 'l': command = inter.ListInterface();
                        
                        switch (command) {
                            case 'O':
@@ -96,7 +84,7 @@ public class Main {
           }
           } while (done == false);
           
-          
+          System.out.println("Have a great day!");
           
     } 
 }

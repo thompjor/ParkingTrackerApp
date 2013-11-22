@@ -34,8 +34,12 @@ public class ParkingStall {
         if (isOccupied == true)
             System.out.println("The stall is already occupied\n");
         else {
-            isOccupied = true;
-            System.out.println("The stall has been changed to occupied\n");
+            if (isInService == false)
+                System.out.println("The stall cannot become occupied while it is out of service");
+            else {
+               isOccupied = true;
+               System.out.println("The stall has been changed to occupied\n");
+            }
         }
     }
     
@@ -61,8 +65,12 @@ public class ParkingStall {
         if (isInService == false)
             System.out.println("The stall is already out of service\n");
         else {
-            isInService = false;
-            System.out.println("The stall has been changed to out of service\n");
+            if (isOccupied == true)
+               System.out.println("The stall cannot be changed to out of service while it is occupied");
+            else {
+               isInService = false;
+               System.out.println("The stall has been changed to out of service\n");
+            }
         }
     }
     
