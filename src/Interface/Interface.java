@@ -1,23 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Interface
+ * 
+ * Description: The interface class simplifies the readability of main by separating the majority 
+ *              of the ParkingTracker's prompts
+ *          
+ * 
+ * @author: Archana Gumber & Jordan Thompson
+ * @version: 3.0
  */
-
 package Interface;
 import java.util.Scanner;
 
-/**
- *
- * @author Jordan
- */
 public class Interface {
-    private Scanner user_input; 
+    private Scanner user_input;  //needed for user input
     
+    //default constructor just creates the variable for user input
     public Interface(){
         user_input = new Scanner(System.in);
     }
     
+    //shows the main list of available options to the user, and returns a command
     public char ParkingLotInterface() {
         System.out.println("\n-----------------------------------------------------------\n");
         System.out.println("Enter 'A' to add a stall");
@@ -28,6 +30,7 @@ public class Interface {
         return user_input.next().charAt(0);
     }
     
+    //shows the list of available parking stall options to the user, and returns a command
     public char ParkingStallInterface() {
         System.out.println("\n-----------------------------------------------------------\n");
         System.out.println("Enter 'O' to change the stall to occupied");
@@ -38,6 +41,7 @@ public class Interface {
         return user_input.next().charAt(0);
     }
     
+    //shows the list of available listing options to the user, and returns a command
     public char ListInterface() {
         System.out.println("\n-----------------------------------------------------------\n");
         System.out.println("Enter 'O' to print a list of occupied stalls");

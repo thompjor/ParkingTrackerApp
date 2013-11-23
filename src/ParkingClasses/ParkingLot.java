@@ -1,25 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * ParkingTracker
+ * 
+ * Description: The ParkingLot class contains the attributes and methods representing a real-world parking lot
+ *              The parking lot is represented as a linked list of parking stalls
+ * @author: Archana Gumber & Jordan Thompson
+ * @version: 3.0
  */
 
 package ParkingClasses;
 
 import java.util.Scanner;
-/**
- *
- * @author Jordan
- */
+
 public class ParkingLot {
-    private String name;
-    private ParkingStall head;
+    private String name;         //parking lot's name
+    private ParkingStall head;   //address of the first stall in the lot (since the lot is represented as a linked list)
     
+    //default constructor; initializes both fields to empty values
     public ParkingLot() {
         name = "";
         head = null;
     }
     
+    //initializing constructor; creates a ParkingLot object with the requested name and number of stalls. The stall are 
+    //automatically assigned numbers counting from 1 to the # of stalls, and are connected in that order in a linked list
     public ParkingLot(String name_in, int num_stalls) {
         ParkingStall prev;
         ParkingStall newStall;
@@ -33,38 +36,68 @@ public class ParkingLot {
         }     
     }
     
+    //displays a list of all stalls in the lot which are occupied, if any
     public void showOccupiedList() {
-        System.out.println("The following are the stalls which are occupied:");
+        int counter = 0;
+        System.out.println("The following stalls are occupied:");
         for (ParkingStall current = head; current != null; current = current.getNext()) {
-            if (current.getIsOccupied() == true)
+            if (current.getIsOccupied() == true) {
                 System.out.println(current.getNumber());
-        }      
+                counter += 1;
+            }
+        }  
+        if (counter == 0)
+            System.out.println("None");
     }
     
+    //displays a list of all stalls in the lot which are vacant, if any
     public void showVacantList() {
-        System.out.println("The following are the stalls which are vacant:");
+        int counter = 0;
+        System.out.println("The following stalls are vacant:");
         for (ParkingStall current = head; current != null; current = current.getNext()) {
-            if (current.getIsOccupied() == false)
+            if (current.getIsOccupied() == false) {
                 System.out.println(current.getNumber());
-        }     
+                counter += 1;
+            }
+        }  
+        if (counter == 0)
+           System.out.println("None");
     }
     
+    //displays a list of all stalls in the lot which are in service, if any
     public void showInServiceList() {
-        System.out.println("The following are the stalls which are in service:");
+        int counter = 0;
+        System.out.println("The following stalls are in service:");
         for (ParkingStall current = head; current != null; current = current.getNext()) {
-            if (current.getIsInService() == true)
+            if (current.getIsInService() == true) {
                 System.out.println(current.getNumber());
+                counter += 1;
+            }
         }     
+        if (counter == 0)
+          System.out.println("None");
     }
     
+    //displays a list of all stalls in the lot which are out of service, if any
     public void showOutOfServiceList() {
-        System.out.println("The following are the stalls which are currently out of service:");
+        int counter = 0;
+        System.out.println("The following stalls are out of service:");
         for (ParkingStall current = head; current != null; current = current.getNext()) {
-            if (current.getIsInService() == false)
+            if (current.getIsInService() == false) {
                 System.out.println(current.getNumber());
+                counter += 1;
+            }
         }     
+        if (counter == 0)
+          System.out.println("None");
     }
     
+    //deletes the stall requested by the user from the linked list, and connects the surrounding links
+    public void DeleteParkingStall() {
+        //I still need to code this one...
+    }
+    
+    //adds a parking stall to the end of the linked list, and numbers it 1 higher than the previous number
     public void AddParkingStall() {
         ParkingStall current;
         
@@ -77,6 +110,7 @@ public class ParkingLot {
         System.out.println("A stall has been added (number " + newStall.getNumber() + ")");
     }
     
+    //finds the stall requested by the user and returns it (returns null if it is not found)
     public ParkingStall FindParkingStall() {
         Scanner user_input = new Scanner(System.in);
         ParkingStall current;
