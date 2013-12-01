@@ -4,12 +4,11 @@
  * Description: The ParkingLot class contains the attributes and methods representing a real-world parking lot
  *              The parking lot is represented as a linked list of parking stalls
  * @author: Archana Gumber & Jordan Thompson
- * @version: 3.0
+ * @version: 4.0
  */
 
 package ParkingClasses;
 
-import java.util.Scanner;
 
 public class ParkingLot {
     private String name;         //parking lot's name
@@ -46,6 +45,7 @@ public class ParkingLot {
                 counter += 1;
             }
         }  
+        //if there are no occupied stalls... 
         if (counter == 0)
             System.out.println("None");
     }
@@ -59,7 +59,8 @@ public class ParkingLot {
                 System.out.println(current.getNumber());
                 counter += 1;
             }
-        }  
+        }
+        //if there are no vacant stalls... 
         if (counter == 0)
            System.out.println("None");
     }
@@ -74,6 +75,7 @@ public class ParkingLot {
                 counter += 1;
             }
         }     
+        //if there are no in service stalls... 
         if (counter == 0)
           System.out.println("None");
     }
@@ -88,37 +90,72 @@ public class ParkingLot {
                 counter += 1;
             }
         }     
+        //if there are no out of service stalls... 
         if (counter == 0)
           System.out.println("None");
     }
     
     //deletes the stall requested by the user from the linked list, and connects the surrounding links
-    public void DeleteParkingStall() {
-        //I still need to code this one...
+    public void DeleteParkingStall(int num) {
+        ParkingStall current;      //the ParkingStall link in the list which is currently being tested
+        ParkingStall prev = null;  //the ParkingStall link in the list just before current
+        
+        //cycles through the list until either the end is reached (current == null), or the link with the requested number is found
+        for (current = head; current != null; current = current.getNext()) {
+            if (current.getNumber() == num)
+                break;
+            prev = current;
+        } 
+        
+        //if current is the first element in the list (current == head), make the next element the head and delete
+        //if current is null, the item was not found
+        //otherwise, perform normal deletion from list
+        if (current == head) {
+            head = current.getNext();
+            System.out.println("Stall number " + num + " has been deleted");
+        }
+        else if (current == null) 
+            System.out.println("The requested stall number was not found"); 
+        else  {
+            prev.setNext(current.getNext());
+            System.out.println("Stall number " + num + " has been deleted");
+        }
     }
     
     //adds a parking stall to the end of the linked list, and numbers it 1 higher than the previous number
     public void AddParkingStall() {
         ParkingStall current;
         
+        //if there are no elements in the list (head == null), start a brand new one
+        if (head == null) {
+            ParkingStall firstStall = new ParkingStall(false, true, 1, null);
+            head = firstStall;
+            System.out.println("A stall has been added (number 1)");
+            return;
+        }
+        
+        //find the end of the list
         for (current = head; current.getNext() != null; current = current.getNext()) {
         }
         
+        //create a new link and connect it at the end
         ParkingStall newStall = new ParkingStall(false, true, current.getNumber() + 1, null);
         current.setNext(newStall);
         
         System.out.println("A stall has been added (number " + newStall.getNumber() + ")");
     }
     
+    //adds a single stall repeatedly, up to the number of times requested by the user
+    public void AddStalls(int num) {
+        for (int i = 0; i < num; i++)
+            this.AddParkingStall();
+    }
+    
     //finds the stall requested by the user and returns it (returns null if it is not found)
-    public ParkingStall FindParkingStall() {
-        Scanner user_input = new Scanner(System.in);
+    public ParkingStall FindParkingStall(int num) {
         ParkingStall current;
-        int num;
-        System.out.print("What is the number of the stall you are searching for? ");
-        num = user_input.nextInt();
         
-        
+        //searches for the stall, returns it if found
         for (current = head; current != null; current = current.getNext()) {
             if (current.getNumber() == num) {
                 System.out.println("The stall was found\n");
@@ -126,6 +163,7 @@ public class ParkingLot {
             }
         }
         
+        //if not found, outputs message and returns null
         System.out.println("The stall was not found\n");
         return current;
     }

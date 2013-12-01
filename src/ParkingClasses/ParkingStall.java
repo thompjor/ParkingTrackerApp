@@ -5,7 +5,7 @@
  *              The stalls themselves are represented as links within a linked list (the parking lot)
  * 
  * @author: Archana Gumber & Jordan Thompson
- * @version: 3.0
+ * @version: 4.0
  */
 
 package ParkingClasses;
